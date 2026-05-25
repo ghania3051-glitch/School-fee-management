@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>School Fee Management System – Project Documentation</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #2c2c2c; background: #fff; }
+  .cover { page-break-after: always; background: linear-gradient(135deg,#195496,#0f3460); color:#fff; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px 40px; }
+  .cover h1 { font-size:36px; margin-bottom:12px; }
+  .cover h2 { font-size:20px; font-weight:400; opacity:.85; margin-bottom:40px; }
+  .cover table { border-collapse:collapse; width:480px; background:rgba(255,255,255,.12); border-radius:8px; overflow:hidden; }
+  .cover td { padding:10px 20px; border-bottom:1px solid rgba(255,255,255,.15); font-size:14px; }
+  .cover td:first-child { font-weight:700; text-align:right; width:180px; color:rgba(200,230,255,1); }
+  .toc { page-break-after: always; padding:50px 60px; }
+  .toc h2 { font-size:22px; color:#195496; border-bottom:3px solid #195496; padding-bottom:8px; margin-bottom:24px; }
+  .toc ol { padding-left:24px; }
+  .toc li { margin:10px 0; font-size:14px; }
+  .toc a { color:#195496; text-decoration:none; }
+  section { padding:40px 60px; page-break-inside: avoid; }
+  section + section { border-top: 3px solid #e9ecef; }
+  h2.section-title { font-size:22px; color:#195496; border-bottom:3px solid #195496; padding-bottom:8px; margin-bottom:24px; }
+  h3 { font-size:16px; color:#0f3460; margin:20px 0 10px; }
+  h4 { font-size:14px; color:#195496; margin:14px 0 6px; }
+  p { line-height:1.7; margin-bottom:12px; }
+  ul,ol { padding-left:24px; margin-bottom:12px; }
+  li { margin:5px 0; line-height:1.6; }
+  table { width:100%; border-collapse:collapse; margin:16px 0; font-size:12.5px; }
+  th { background:#195496; color:#fff; padding:9px 12px; text-align:left; }
+  td { padding:8px 12px; border-bottom:1px solid #dee2e6; }
+  tr:nth-child(even) td { background:#f8f9fa; }
+  code { background:#f1f3f5; padding:2px 6px; border-radius:3px; font-family:'Courier New',monospace; font-size:12px; color:#c0392b; }
+  pre { background:#f8f9fa; border:1px solid #dee2e6; border-left:4px solid #195496; padding:14px 16px; border-radius:4px; font-family:'Courier New',monospace; font-size:11.5px; overflow-x:auto; margin:12px 0; line-height:1.6; }
+  .badge { display:inline-block; background:#195496; color:#fff; border-radius:4px; padding:2px 9px; font-size:11px; margin:2px; }
+  .badge.green { background:#28a745; }
+  .badge.grey  { background:#6c757d; }
+  .note { background:#e8f4fd; border-left:4px solid #195496; padding:12px 16px; border-radius:4px; margin:12px 0; font-size:12.5px; }
+  .warn { background:#fff3cd; border-left:4px solid #ffc107; padding:12px 16px; border-radius:4px; margin:12px 0; font-size:12.5px; }
+  .arch-box { border:2px solid #195496; border-radius:8px; padding:16px; margin:16px 0; }
+  .arch-box h4 { margin-top:0; }
+  .layer { background:#e8f4fd; border:1px solid #bee5fb; border-radius:6px; padding:10px 16px; margin:6px 0; font-weight:600; color:#195496; }
+  .arrow { text-align:center; color:#195496; font-size:18px; margin:2px 0; }
+  @media print { section { page-break-before: always; } section:first-of-type { page-break-before: avoid; } }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════ COVER ════════════════════════════════ -->
+<div class="cover">
+  <div style="font-size:64px;margin-bottom:20px;">🎓</div>
+  <h1>School Fee Management System</h1>
+  <h2>Visual Programming (CS-412) — Semester Project</h2>
+  <br/>
+  <table>
+    <tr><td>Course</td><td>Visual Programming – CS-412</td></tr>
+    <tr><td>Technology</td><td>C# · Windows Forms · .NET 6 · SQLite</td></tr>
+    <tr><td>Data Access</td><td>ADO.NET (System.Data.SQLite)</td></tr>
+    <tr><td>IDE</td><td>Visual Studio 2022</td></tr>
+    <tr><td>Database</td><td>SQLite (file-based, no server required)</td></tr>
+    <tr><td>Year</td><td>2024 / 2025</td></tr>
+  </table>
+</div>
+
+<!-- ════════════════════════════════ TOC ════════════════════════════════ -->
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">SRS / Design Document</a> — Problem statement, objectives, features, user roles</li>
+    <li><a href="#s2">Database Design</a> — ER diagram, table schemas, relationships</li>
+    <li><a href="#s3">Form Designs</a> — Screenshots and descriptions of all screens</li>
+    <li><a href="#s4">Architecture Diagram</a> — Layers: UI, Business Logic, Data Access</li>
+    <li><a href="#s5">Technical Manual</a> — Prerequisites, setup, configuration, running the app</li>
+    <li><a href="#s6">User Manual</a> — Step-by-step usage guide for all features</li>
+    <li><a href="#s7">Challenges &amp; Solutions</a> — Problems encountered during development</li>
+    <li><a href="#s8">Trade-offs &amp; Decisions</a> — Technology choices and justifications</li>
+  </ol>
+</div>
+
+<!-- ════════════════════════════ SECTION 1 — SRS ════════════════════════════ -->
+<section id="s1">
+  <h2 class="section-title">1. Software Requirements Specification (SRS) / Design Document</h2>
+
+  <h3>1.1 Problem Statement</h3>
+  <p>Many schools still manage fee collection manually — using paper ledgers, handwritten receipts, and spreadsheets. This approach is error-prone, time-consuming, and makes reporting difficult. There is a clear need for a simple, reliable desktop application that allows school administrators to:</p>
+  <ul>
+    <li>Maintain an accurate student database</li>
+    <li>Record and track fee payments per student, per term</li>
+    <li>Generate receipts and financial reports instantly</li>
+    <li>Ensure only authorised personnel can access the system</li>
+  </ul>
+
+  <h3>1.2 Objectives</h3>
+  <ol>
+    <li>Build a fully functional Windows Forms desktop application in C#</li>
+    <li>Implement complete CRUD operations on the two main entities: <strong>Students</strong> and <strong>Payments</strong></li>
+    <li>Provide a secure login system with session management</li>
+    <li>Offer search/filter capabilities across all data grids</li>
+    <li>Display a dashboard with real-time statistics</li>
+    <li>Generate payment receipts and exportable reports</li>
+    <li>Apply a consistent, professional blue and grey colour theme</li>
+  </ol>
+
+  <h3>1.3 Features List</h3>
+  <table>
+    <tr><th>Feature</th><th>Category</th><th>Status</th></tr>
+    <tr><td>User login with username/password</td><td>Authentication</td><td><span class="badge green">✅ Done</span></td></tr>
+    <tr><td>Session management (logout)</td><td>Authentication</td><td><span class="badge green">✅ Done</span></td></tr>
+    <tr><td>Add new student</td><td>Students CRUD</td><td><span class="badge green">✅ Done</span></td></tr>
+    <tr><td>View all students in DataGridView</td><td>Students CRUD</td><td><span class="badge green">✅ Done</span></td></tr>
+    <tr><td>Edit student record</td><td>Students CRUD</td><td><span class="badge green">✅ Done</span></td></tr>
+    <tr><td>Delete student (with confirmation)</td><td>Students CRUD</td><td><span class="badge green">✅ Done</span></td></tr>
+    <tr><td>Search / filter students</td><td>Students CRUD</td><td><span class="badge green">✅ Done</span></td></tr>
+    <tr><td>Record fee payment</td><td>Payments CRUD</td><td><span class="badge green">✅ Done</span></td></tr>
+    <tr><td>View all payments (filterable)</td><td>Payments CRUD</td><td><span class="badge green">✅ Done</span></td></tr>
+    <tr><td>Delete payment record</td><td>Payments CRUD</td><td><span class="badge green">✅ Done</span></td></tr>
+    <tr><td>Auto-generated receipt number</td><td>Payments</td><td><span class="badge green">✅ Done</span></td></tr>
+    <tr><td>Receipt preview panel</td><td>Payments</td><td><span class="badge green">✅ Done</span></td></tr>
+    <tr><td>Dashboard with stats cards</td><td>Dashboard</td><td><span class="badge green">✅ Done</span></td></tr>
+    <tr><td>5 report types</td><td>Reports</td><td><span class="badge green">✅ Done</span></td></tr>
+    <tr><td>Export payments to CSV</td><td>Reports</td><td><span class="badge green">✅ Done</span></td></tr>
+    <tr><td>Blue &amp; grey UI theme</td><td>UI/UX</td><td><span class="badge green">✅ Done</span></td></tr>
+  </table>
+
+  <h3>1.4 User Roles</h3>
+  <table>
+    <tr><th>Role</th><th>Permissions</th></tr>
+    <tr><td><strong>Admin</strong></td><td>Full access: login, add/edit/delete students, record payments, view reports, logout</td></tr>
+  </table>
+  <div class="note">📌 The system is designed for a single admin role. Role-based access control can be extended by adding a Role column check to each form.</div>
+</section>
+
+<!-- ════════════════════════════ SECTION 2 — DATABASE ════════════════════════════ -->
+<section id="s2">
+  <h2 class="section-title">2. Database Design</h2>
+
+  <h3>2.1 Entity-Relationship Summary</h3>
+  <pre>
+  ┌─────────────┐       ┌─────────────────┐       ┌───────────────┐
+  │   Users     │       │    Payments      │       │   FeeTypes    │
+  │─────────────│       │─────────────────│       │───────────────│
+  │ UserID (PK) │◄──────│ RecordedBy (FK) │──────►│ FeeTypeID (PK)│
+  │ Username    │       │ PaymentID (PK)  │       │ FeeName       │
+  │ Password    │       │ StudentID  (FK) │       │ Amount        │
+  │ FullName    │       │ FeeTypeID  (FK) │       │ Description   │
+  │ Role        │       │ AmountPaid      │       └───────────────┘
+  └─────────────┘       │ PaymentDate     │
+                         │ PaymentMethod   │
+  ┌─────────────┐       │ ReceiptNumber   │
+  │  Students   │       │ AcademicYear    │
+  │─────────────│       │ Term            │
+  │StudentID(PK)│◄──────│ Notes           │
+  │StudentNumber│       └─────────────────┘
+  │ FirstName   │
+  │ LastName    │
+  │ DateOfBirth │
+  │ Gender      │
+  │ Grade       │
+  │ ParentName  │
+  │ ParentPhone │
+  │ Email       │
+  │ Address     │
+  │ IsActive    │  ← soft-delete flag
+  └─────────────┘
+  </pre>
+
+  <h3>2.2 Table Schemas</h3>
+
+  <h4>Users</h4>
+  <table>
+    <tr><th>Column</th><th>Type</th><th>Constraints</th><th>Description</th></tr>
+    <tr><td>UserID</td><td>INTEGER</td><td>PK, AUTOINCREMENT</td><td>Unique user identifier</td></tr>
+    <tr><td>Username</td><td>TEXT</td><td>NOT NULL, UNIQUE</td><td>Login username</td></tr>
+    <tr><td>Password</td><td>TEXT</td><td>NOT NULL</td><td>Login password (plain text for demo)</td></tr>
+    <tr><td>FullName</td><td>TEXT</td><td>NOT NULL</td><td>Display name on dashboard and receipts</td></tr>
+    <tr><td>Role</td><td>TEXT</td><td>DEFAULT 'Admin'</td><td>User role (Admin)</td></tr>
+    <tr><td>CreatedAt</td><td>TEXT</td><td>DEFAULT datetime('now')</td><td>Account creation timestamp</td></tr>
+  </table>
+
+  <h4>Students</h4>
+  <table>
+    <tr><th>Column</th><th>Type</th><th>Constraints</th><th>Description</th></tr>
+    <tr><td>StudentID</td><td>INTEGER</td><td>PK, AUTOINCREMENT</td><td>Internal student key</td></tr>
+    <tr><td>StudentNumber</td><td>TEXT</td><td>NOT NULL, UNIQUE</td><td>Human-readable ID (e.g. STU001)</td></tr>
+    <tr><td>FirstName</td><td>TEXT</td><td>NOT NULL</td><td>Given name</td></tr>
+    <tr><td>LastName</td><td>TEXT</td><td>NOT NULL</td><td>Family name</td></tr>
+    <tr><td>DateOfBirth</td><td>TEXT</td><td>–</td><td>ISO 8601 date string</td></tr>
+    <tr><td>Gender</td><td>TEXT</td><td>–</td><td>Male / Female / Other</td></tr>
+    <tr><td>Grade</td><td>TEXT</td><td>NOT NULL</td><td>Grade 1 – Grade 12</td></tr>
+    <tr><td>ParentName</td><td>TEXT</td><td>–</td><td>Guardian name</td></tr>
+    <tr><td>ParentPhone</td><td>TEXT</td><td>–</td><td>Contact number</td></tr>
+    <tr><td>Email</td><td>TEXT</td><td>–</td><td>Email address</td></tr>
+    <tr><td>Address</td><td>TEXT</td><td>–</td><td>Residential address</td></tr>
+    <tr><td>EnrollmentDate</td><td>TEXT</td><td>DEFAULT datetime('now')</td><td>Auto-stamped on insert</td></tr>
+    <tr><td>IsActive</td><td>INTEGER</td><td>DEFAULT 1</td><td>1 = active; 0 = soft-deleted</td></tr>
+  </table>
+
+  <h4>FeeTypes</h4>
+  <table>
+    <tr><th>Column</th><th>Type</th><th>Constraints</th><th>Description</th></tr>
+    <tr><td>FeeTypeID</td><td>INTEGER</td><td>PK, AUTOINCREMENT</td><td>Unique fee category key</td></tr>
+    <tr><td>FeeName</td><td>TEXT</td><td>NOT NULL</td><td>e.g. "Tuition Fee"</td></tr>
+    <tr><td>Amount</td><td>REAL</td><td>NOT NULL</td><td>Standard/default amount in Rands</td></tr>
+    <tr><td>Description</td><td>TEXT</td><td>–</td><td>Optional notes</td></tr>
+    <tr><td>IsActive</td><td>INTEGER</td><td>DEFAULT 1</td><td>Soft-delete flag</td></tr>
+  </table>
+
+  <h4>Payments</h4>
+  <table>
+    <tr><th>Column</th><th>Type</th><th>Constraints</th><th>Description</th></tr>
+    <tr><td>PaymentID</td><td>INTEGER</td><td>PK, AUTOINCREMENT</td><td>Unique payment record</td></tr>
+    <tr><td>StudentID</td><td>INTEGER</td><td>FK → Students</td><td>Which student paid</td></tr>
+    <tr><td>FeeTypeID</td><td>INTEGER</td><td>FK → FeeTypes</td><td>Which fee category</td></tr>
+    <tr><td>AmountPaid</td><td>REAL</td><td>NOT NULL</td><td>Actual amount (may differ from standard)</td></tr>
+    <tr><td>PaymentDate</td><td>TEXT</td><td>DEFAULT datetime('now')</td><td>Auto-stamped timestamp</td></tr>
+    <tr><td>PaymentMethod</td><td>TEXT</td><td>NOT NULL</td><td>Cash / Bank Transfer / Card etc.</td></tr>
+    <tr><td>ReceiptNumber</td><td>TEXT</td><td>NOT NULL, UNIQUE</td><td>Auto-generated (RCP + timestamp)</td></tr>
+    <tr><td>AcademicYear</td><td>TEXT</td><td>NOT NULL</td><td>e.g. "2024/2025"</td></tr>
+    <tr><td>Term</td><td>TEXT</td><td>NOT NULL</td><td>Term 1 – Term 4</td></tr>
+    <tr><td>Notes</td><td>TEXT</td><td>–</td><td>Optional admin notes</td></tr>
+    <tr><td>RecordedBy</td><td>INTEGER</td><td>FK → Users</td><td>Logged-in user who recorded it</td></tr>
+  </table>
+</section>
+
+<!-- ════════════════════════════ SECTION 3 — FORMS ════════════════════════════ -->
+<section id="s3">
+  <h2 class="section-title">3. Form Designs &amp; Descriptions</h2>
+  <div class="note">📸 In your submitted documentation, replace each description below with an actual screenshot of the running form.</div>
+
+  <h3>Form 1 — Login Screen (<code>LoginForm.cs</code>)</h3>
+  <p><strong>Layout:</strong> Split-panel. Left panel (blue): branding, app name, tagline. Right panel (white): username field, password field, Login button, error label, hint text.</p>
+  <p><strong>Key behaviour:</strong> Validates both fields are filled, queries the <code>Users</code> table with parameterised SQL, sets session variables on success, and shows an error label on failure.</p>
+
+  <h3>Form 2 — Main Dashboard (<code>MainDashboardForm.cs</code>)</h3>
+  <p><strong>Layout:</strong> Dark-blue top bar (app title + logged-in user), dark-blue sidebar (navigation buttons), white content area.</p>
+  <p><strong>Content area on load:</strong> Four stat cards (Total Students, Total Payments, Total Revenue, Today's Payments) and a DataGridView showing the 15 most recent payments.</p>
+  <p><strong>Sidebar buttons:</strong> Dashboard, Students, Fee Payment, View Payments, Reports, Logout.</p>
+
+  <h3>Form 3 — Student Management (<code>StudentManagementControl.cs</code>)</h3>
+  <p><strong>Layout:</strong> Header, toolbar (Search box, Add/Edit/Delete/Refresh buttons), DataGridView listing all active students.</p>
+  <p><strong>Add/Edit mode:</strong> The grid hides and an inline form appears with all student fields. Clicking Save inserts/updates the database; Cancel returns to the grid.</p>
+  <p><strong>Delete:</strong> Asks for confirmation before removing the student and their payment records.</p>
+
+  <h3>Form 4 — Fee Payment (<code>FeePaymentControl.cs</code>)</h3>
+  <p><strong>Layout:</strong> Left card (payment form), right card (recent payments grid + receipt preview).</p>
+  <p><strong>Fields:</strong> Student (combo), Fee Type (combo, auto-fills amount), Amount, Payment Method, Term, Academic Year, Receipt Number (read-only auto), Notes.</p>
+  <p><strong>On Process Payment:</strong> Validates all required fields, parses amount with <code>InvariantCulture</code> to avoid comma/period locale bugs, inserts into <code>Payments</code> table, shows receipt preview, refreshes history grid.</p>
+
+  <h3>Form 5 — View Payments (<code>ViewPaymentsControl.cs</code>)</h3>
+  <p><strong>Layout:</strong> Header, toolbar (Search, Term filter, Year filter, Export CSV, Delete buttons), DataGridView.</p>
+  <p><strong>Filtering:</strong> Real-time text search + Term and Year combo filters applied dynamically to the SQL query.</p>
+  <p><strong>Export:</strong> Saves visible rows to a user-specified CSV file.</p>
+
+  <h3>Form 6 — Reports &amp; Analytics (<code>ReportsControl.cs</code>)</h3>
+  <p><strong>Layout:</strong> Header, row of 5 report-type buttons, report title label, DataGridView showing results.</p>
+  <p><strong>Report types:</strong> Revenue by Fee Type, Revenue by Grade, Monthly Revenue, Top Paying Students, Term Summary.</p>
+</section>
+
+<!-- ════════════════════════════ SECTION 4 — ARCHITECTURE ════════════════════════════ -->
+<section id="s4">
+  <h2 class="section-title">4. Architecture Diagram</h2>
+
+  <div class="arch-box">
+    <h4>Application Layers</h4>
+    <div class="layer">🖥️  Presentation Layer (UI) — <code>Forms/</code> folder</div>
+    <div class="arrow">▼  calls methods on ▼</div>
+    <div class="layer">⚙️  Business Logic — embedded in Form classes (validation, session, receipt generation)</div>
+    <div class="arrow">▼  calls ▼</div>
+    <div class="layer">🗄️  Data Access Layer — <code>Database/DatabaseHelper.cs</code></div>
+    <div class="arrow">▼  reads / writes ▼</div>
+    <div class="layer">💾  Data Store — <code>SchoolFeeDB.sqlite</code>  (SQLite file on local disk)</div>
+  </div>
+
+  <h3>4.1 Folder Structure</h3>
+  <pre>
+SchoolFeeManagement/           ← Solution root
+├── SchoolFeeManagement.sln
+├── .gitignore
+├── DEPLOYMENT.md
+├── REPOSITORY.txt
+├── Database_Schema.sql
+└── SchoolFeeManagement/       ← Project root
+    ├── Program.cs             ← Entry point; initialises DB; runs LoginForm
+    ├── SchoolFeeManagement.csproj
+    ├── Database/
+    │   └── DatabaseHelper.cs  ← ALL SQL; parameterised queries; no SQL in forms
+    ├── Helpers/
+    │   ├── ThemeHelper.cs     ← Colours, fonts, factory methods for styled controls
+    │   └── SessionHelper.cs   ← Logged-in user state; receipt number generator
+    └── Forms/
+        ├── LoginForm.cs
+        ├── MainDashboardForm.cs
+        ├── StudentManagementControl.cs
+        ├── FeePaymentControl.cs
+        ├── ViewPaymentsControl.cs
+        └── ReportsControl.cs
+  </pre>
+
+  <h3>4.2 Design Principles Applied</h3>
+  <ul>
+    <li><strong>Separation of Concerns:</strong> All SQL is in <code>DatabaseHelper</code>; all theme constants are in <code>ThemeHelper</code>; forms only handle UI logic.</li>
+    <li><strong>DRY (Don't Repeat Yourself):</strong> <code>ThemeHelper</code> factory methods (<code>CreateStyledGrid</code>, <code>CreateHeader</code>, <code>CreatePrimaryButton</code>) eliminate repeated styling code.</li>
+    <li><strong>Parameterised Queries:</strong> Every SQL statement uses <code>SQLiteParameter</code> to prevent SQL injection.</li>
+    <li><strong>Defensive Coding:</strong> All critical paths (payment save, login, delete) are wrapped in try/catch with user-facing error dialogs.</li>
+  </ul>
+</section>
+
+<!-- ════════════════════════════ SECTION 5 — TECHNICAL MANUAL ════════════════════════════ -->
+<section id="s5">
+  <h2 class="section-title">5. Technical Manual</h2>
+
+  <h3>5.1 Prerequisites</h3>
+  <table>
+    <tr><th>Component</th><th>Version / Download</th></tr>
+    <tr><td>Operating System</td><td>Windows 10 / 11 (64-bit)</td></tr>
+    <tr><td>.NET SDK</td><td>.NET 6 — <a href="https://dotnet.microsoft.com/en-us/download/dotnet/6.0">dotnet.microsoft.com</a></td></tr>
+    <tr><td>Visual Studio</td><td>2022 Community+ — include <em>.NET desktop development</em> workload</td></tr>
+    <tr><td>NuGet Package</td><td>System.Data.SQLite v1.0.118 — auto-restored by VS</td></tr>
+  </table>
+
+  <h3>5.2 Opening &amp; Running the Project</h3>
+  <ol>
+    <li>Extract <code>SchoolFeeManagement.zip</code> to any writable folder.</li>
+    <li>Double-click <code>SchoolFeeManagement.sln</code> → Visual Studio 2022 opens.</li>
+    <li>Wait for NuGet package restore (bottom status bar).</li>
+    <li>Press <strong>F5</strong> (Debug) or <strong>Ctrl+F5</strong> (Run without debugging).</li>
+    <li>The SQLite database <code>SchoolFeeDB.sqlite</code> is created automatically in <code>bin\Debug\net6.0-windows\</code>.</li>
+    <li>Login with <strong>admin / admin123</strong>.</li>
+  </ol>
+
+  <h3>5.3 Database Configuration</h3>
+  <p>No configuration is needed. The database path is resolved at runtime:</p>
+  <pre>Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SchoolFeeDB.sqlite")</pre>
+  <p>To reset the database, delete <code>SchoolFeeDB.sqlite</code> and restart the application.</p>
+
+  <h3>5.4 Adding a New User (via SQLite Browser)</h3>
+  <pre>INSERT INTO Users (Username, Password, FullName, Role)
+VALUES ('cashier1', 'pass123', 'Jane Doe', 'Admin');</pre>
+</section>
+
+<!-- ════════════════════════════ SECTION 6 — USER MANUAL ════════════════════════════ -->
+<section id="s6">
+  <h2 class="section-title">6. User Manual</h2>
+
+  <h3>6.1 Logging In</h3>
+  <ol>
+    <li>Launch the application — the Login screen appears.</li>
+    <li>Enter <strong>Username:</strong> <code>admin</code>  and  <strong>Password:</strong> <code>admin123</code>.</li>
+    <li>Click <strong>LOGIN</strong> or press Enter.</li>
+    <li>On success, the Main Dashboard opens.</li>
+    <li>On failure, a red error message appears beneath the fields.</li>
+  </ol>
+
+  <h3>6.2 Dashboard</h3>
+  <p>The home screen shows four summary cards at the top:</p>
+  <ul>
+    <li><strong>Total Students</strong> — active students in the database</li>
+    <li><strong>Total Payments</strong> — all payment records</li>
+    <li><strong>Total Revenue</strong> — sum of all AmountPaid</li>
+    <li><strong>Today's Payments</strong> — payments recorded today</li>
+  </ul>
+  <p>Below the cards is a grid showing the 15 most recent payments.</p>
+
+  <h3>6.3 Managing Students</h3>
+  <p>Click <strong>👥 Students</strong> in the sidebar.</p>
+  <ul>
+    <li><strong>Add:</strong> Click <em>➕ Add Student</em> → fill in required fields (marked *) → click <em>💾 Save Student</em>.</li>
+    <li><strong>Search:</strong> Type in the search box — the grid filters in real time by name, student number, or grade.</li>
+    <li><strong>Edit:</strong> Select a row → click <em>✏ Edit</em> → modify fields → click <em>💾 Save Student</em>.</li>
+    <li><strong>Delete:</strong> Select a row → click <em>🗑 Delete</em> → confirm in the dialog. This also removes the student's payment records.</li>
+  </ul>
+
+  <h3>6.4 Recording a Fee Payment</h3>
+  <p>Click <strong>💰 Fee Payment</strong> in the sidebar.</p>
+  <ol>
+    <li>Select the <strong>Student</strong> from the dropdown — grade and parent info appears below.</li>
+    <li>Select the <strong>Fee Type</strong> — the standard amount auto-fills in the Amount box.</li>
+    <li>Adjust the <strong>Amount</strong> if needed (partial payment is allowed).</li>
+    <li>Choose <strong>Payment Method</strong>, <strong>Term</strong>, and <strong>Academic Year</strong>.</li>
+    <li>Optionally add a <strong>Note</strong>.</li>
+    <li>Click <strong>💳 Process Payment</strong>.</li>
+    <li>A receipt preview appears on the right, and the recent payments grid refreshes.</li>
+    <li>Click <strong>🔄 Clear</strong> to reset the form for the next payment.</li>
+  </ol>
+
+  <h3>6.5 Viewing &amp; Searching Payments</h3>
+  <p>Click <strong>📋 View Payments</strong> in the sidebar.</p>
+  <ul>
+    <li>Use the <strong>Search</strong> box to find by student name, number, or receipt number.</li>
+    <li>Use the <strong>Term</strong> and <strong>Year</strong> dropdowns to filter by period.</li>
+    <li>Click <strong>📋 Export to CSV</strong> to save filtered results as a spreadsheet.</li>
+    <li>Select a row and click <strong>🗑 Delete</strong> to remove a payment record.</li>
+  </ul>
+
+  <h3>6.6 Reports</h3>
+  <p>Click <strong>📊 Reports</strong> in the sidebar. Use the report buttons to switch views:</p>
+  <ul>
+    <li><strong>Revenue by Fee Type</strong> — totals per category</li>
+    <li><strong>Revenue by Grade</strong> — breakdown per grade</li>
+    <li><strong>Monthly Revenue</strong> — month-by-month trend</li>
+    <li><strong>Top Payers</strong> — ranked student list</li>
+    <li><strong>Term Summary</strong> — per-term totals</li>
+  </ul>
+
+  <h3>6.7 Logging Out</h3>
+  <p>Click <strong>🚪 Logout</strong> at the bottom of the sidebar → confirm in the dialog → the Login screen returns. Session data is cleared immediately.</p>
+</section>
+
+<!-- ════════════════════════════ SECTION 7 — CHALLENGES ════════════════════════════ -->
+<section id="s7">
+  <h2 class="section-title">7. Challenges &amp; Solutions</h2>
+
+  <h3>Challenge 1 — Amount Parsing Bug (Fee Payment)</h3>
+  <p><strong>Problem:</strong> When a fee type was selected, the standard amount was auto-filled using <code>.ToString("N2")</code> (e.g. <code>"5,000.00"</code>). <code>double.TryParse</code> with the default culture failed on the comma separator, causing every payment submission to show "Invalid amount."</p>
+  <p><strong>Solution:</strong> Changed the amount text box population to use <code>.ToString("F2", CultureInfo.InvariantCulture)</code> (e.g. <code>"5000.00"</code>), and the parse step to strip commas then use <code>CultureInfo.InvariantCulture</code> — making it locale-independent and robust.</p>
+
+  <h3>Challenge 2 — Shared UI Theme</h3>
+  <p><strong>Problem:</strong> Applying consistent colours and fonts across six different form/control files led to repetitive code and inconsistency when tweaking a shade.</p>
+  <p><strong>Solution:</strong> Created <code>ThemeHelper.cs</code> as a central repository of colour constants and factory methods (<code>CreateHeader</code>, <code>CreateStyledGrid</code>, <code>CreatePrimaryButton</code>, etc.). Any theme change is made in one place.</p>
+
+  <h3>Challenge 3 — Inline Form vs Separate Window</h3>
+  <p><strong>Problem:</strong> Deciding whether Add/Edit Student should open a new <code>Form</code> or appear inline in the same control.</p>
+  <p><strong>Solution:</strong> Chose an inline Panel approach — the DataGridView hides and the form panel slides in. This avoids modal dialog management, keeps the code simpler, and gives a smoother UX without extra window chrome.</p>
+
+  <h3>Challenge 4 — SQLite on First Run</h3>
+  <p><strong>Problem:</strong> If the database file doesn't exist, the application would crash with "unable to open database file."</p>
+  <p><strong>Solution:</strong> <code>DatabaseHelper.InitializeDatabase()</code> is called before any form opens. It uses <code>File.Exists</code> + <code>SQLiteConnection.CreateFile</code> and wraps all CREATE TABLE statements in <code>IF NOT EXISTS</code> guards, making the method safe to call on every startup.</p>
+</section>
+
+<!-- ════════════════════════════ SECTION 8 — TRADE-OFFS ════════════════════════════ -->
+<section id="s8">
+  <h2 class="section-title">8. Trade-offs &amp; Decisions</h2>
+
+  <h3>8.1 SQLite vs SQL Server / MySQL</h3>
+  <table>
+    <tr><th>Criterion</th><th>SQLite ✅ (Chosen)</th><th>SQL Server / MySQL</th></tr>
+    <tr><td>Setup</td><td>Zero — file created at runtime</td><td>Requires server install &amp; config</td></tr>
+    <tr><td>Portability</td><td>One .sqlite file, copy anywhere</td><td>Must export/import dump</td></tr>
+    <tr><td>Performance</td><td>Excellent for &lt; 100k rows</td><td>Better for millions of rows</td></tr>
+    <tr><td>Concurrent users</td><td>Single-writer (fine for desktop)</td><td>Multi-user server scenarios</td></tr>
+    <tr><td>Deployment</td><td>No server needed</td><td>Server must be running on target</td></tr>
+  </table>
+  <p><strong>Decision:</strong> SQLite is the correct choice for a standalone desktop school admin app. No IT infrastructure is required, making deployment on any school PC trivial.</p>
+
+  <h3>8.2 ADO.NET vs Entity Framework</h3>
+  <table>
+    <tr><th>Criterion</th><th>ADO.NET ✅ (Chosen)</th><th>Entity Framework Core</th></tr>
+    <tr><td>Control over SQL</td><td>Full — write exactly what you need</td><td>LINQ translated to SQL (may be inefficient)</td></tr>
+    <tr><td>Learning curve</td><td>Low — matches course material</td><td>Higher — migrations, DbContext, LINQ</td></tr>
+    <tr><td>Transparency</td><td>Every SQL statement is visible</td><td>SQL hidden behind ORM abstraction</td></tr>
+    <tr><td>Performance</td><td>Predictable, no overhead</td><td>Slight ORM overhead</td></tr>
+    <tr><td>Boilerplate</td><td>More repetitive connection code</td><td>Less; handled by EF</td></tr>
+  </table>
+  <p><strong>Decision:</strong> ADO.NET is chosen because it keeps SQL explicit and testable, aligns with the Visual Programming course focus, and avoids EF migration complexity for a simple schema.</p>
+
+  <h3>8.3 Windows Forms vs WPF / MAUI</h3>
+  <table>
+    <tr><th>Criterion</th><th>Windows Forms ✅ (Chosen)</th><th>WPF / MAUI</th></tr>
+    <tr><td>Course requirement</td><td>Specified in brief</td><td>Not required</td></tr>
+    <tr><td>Drag-and-drop design</td><td>Excellent Visual Studio support</td><td>WPF uses XAML (steeper curve)</td></tr>
+    <tr><td>Maturity</td><td>25+ years, well-documented</td><td>WPF: mature; MAUI: newer</td></tr>
+    <tr><td>Cross-platform</td><td>Windows only</td><td>MAUI: multi-platform</td></tr>
+  </table>
+  <p><strong>Decision:</strong> Windows Forms is mandated by the project brief and is the most straightforward choice for a school desktop application that will only run on Windows.</p>
+
+  <h3>8.4 Static Helper vs Repository Pattern</h3>
+  <p><strong>Decision:</strong> A static <code>DatabaseHelper</code> is used instead of a full Repository/Unit-of-Work pattern. For a four-table schema with a single developer, the repository pattern would add substantial boilerplate without measurable benefit. The static helper still cleanly separates data access from UI code, satisfying the modularity requirement.</p>
+
+  <div class="note">
+    <strong>Note for Viva:</strong> Be prepared to explain why each of these trade-offs was made, what the alternative would look like, and under what circumstances you would switch (e.g. "I would choose SQL Server if the school needed multiple simultaneous cashier stations on a network").
+  </div>
+</section>
+
+</body>
+</html>

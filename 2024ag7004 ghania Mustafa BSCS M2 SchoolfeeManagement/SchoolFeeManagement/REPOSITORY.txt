@@ -1,0 +1,31 @@
+============================================================
+  GIT REPOSITORY LINK — School Fee Management System
+  Visual Programming (CS-412)
+============================================================
+
+GitHub Repository URL:
+  https://github.com/YOUR_USERNAME/SchoolFeeManagement
+
+------------------------------------------------------------
+NOTE FOR MARKER:
+  Replace the URL above with your actual GitHub repository
+  URL before submitting.
+
+  The repository should contain:
+    - Regular commits with meaningful messages
+    - A .gitignore (excludes bin/, obj/, *.user, *.sqlite)
+    - An initial "project setup" commit
+    - Feature commits (e.g. "Add student CRUD", "Add fee payment form")
+
+Suggested commit history:
+  [Initial commit] Project structure and solution setup
+  [feat] Database schema and DatabaseHelper (ADO.NET)
+  [feat] Login form with session management
+  [feat] Student management – full CRUD with DataGridView
+  [feat] Fee payment form with receipt preview
+  [feat] View payments with search/filter/export
+  [feat] Reports and analytics module
+  [feat] Blue and grey UI theme (ThemeHelper)
+  [docs] Add README, DEPLOYMENT.md, documentation PDF
+  [fix] Fix amount parsing in FeePaymentControl (N2 format bug)
+============================================================
