@@ -1,15 +1,15 @@
-# 🎓 School Fee Management System
+#  School Fee Management System
 ### C# Windows Forms Desktop Application | University Submission
 
 ---
 
-## 📋 Project Overview
+##  Project Overview
 
 A fully functional **School Fee Management System** built with **C# Windows Forms** (.NET 6) and **SQLite** database. The system allows school administrators to manage student records, record fee payments, view transaction histories, and generate reports — all with a clean blue and grey themed UI.
 
 ---
 
-## ✅ Features Implemented
+##  Features Implemented
 
 | Feature | Status |
 |---------|--------|
@@ -26,7 +26,7 @@ A fully functional **School Fee Management System** built with **C# Windows Form
 
 ---
 
-## 🛠 Technology Stack
+##  Technology Stack
 
 | Component | Technology |
 |-----------|-----------|
@@ -38,7 +38,7 @@ A fully functional **School Fee Management System** built with **C# Windows Form
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 SchoolFeeManagement/
@@ -64,7 +64,7 @@ SchoolFeeManagement/
 
 ---
 
-## 🚀 How to Run
+##  How to Run
 
 ### Prerequisites
 - Visual Studio 2022 (Community or higher)
@@ -89,11 +89,11 @@ SchoolFeeManagement/
    - Username: `admin`
    - Password: `admin123`
 
-> ⚠️ The database file `SchoolFeeDB.sqlite` is created automatically in the same directory as the `.exe` file. No manual database setup is required.
+>  The database file `SchoolFeeDB.sqlite` is created automatically in the same directory as the `.exe` file. No manual database setup is required.
 
 ---
 
-## 🗄️ Database Schema
+##  Database Schema
 
 The SQLite database contains 4 tables:
 
